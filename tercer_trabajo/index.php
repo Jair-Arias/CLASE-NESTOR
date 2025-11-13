@@ -142,13 +142,13 @@ function calcularEdadPromedio($personas) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Gestión de Personas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* (Mantener todo el CSS anterior) */
         :root {
@@ -430,6 +430,54 @@ function calcularEdadPromedio($personas) {
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ===== Alertas en ROJO ===== */
+        .error-message {
+            color: #dc2626 !important;
+            display: none;
+            font-size: 0.8rem !important;
+            margin-top: 5px;
+            padding: 5px 8px;
+            background: #fef2f2;
+            border-radius: 4px;
+            border-left: 3px solid #dc2626;
+            font-weight: 500;
+        }
+
+        .input-error {
+            border-color: #dc2626 !important;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+            background-color: #fef2f2;
+        }
+
+        .input-success {
+            border-color: #16a34a !important;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1) !important;
+        }
+
+        .btn-danger {
+            background: #dc2626 !important;
+            border: 1px solid #dc2626 !important;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c !important;
+            border-color: #b91c1c !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        .btn-warning {
+            background: #ea580c !important;
+            border: 1px solid #ea580c !important;
+        }
+
+        .btn-warning:hover {
+            background: #c2410c !important;
+            border-color: #c2410c !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -515,10 +563,10 @@ function calcularEdadPromedio($personas) {
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="?eliminar=<?php echo $index; ?>" class="btn btn-danger" 
-                                       onclick="return confirm('¿Estás seguro de eliminar a <?php echo $persona->getNombreCompleto(); ?>?')">
+                                    <button class="btn btn-danger" 
+                                        onclick="confirmarEliminacion(<?php echo $index; ?>, '<?php echo $persona->getNombreCompleto(); ?>')">
                                         <i class="fas fa-trash"></i> Eliminar
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -528,11 +576,10 @@ function calcularEdadPromedio($personas) {
 
                 <!-- Botón para eliminar todos -->
                 <div style="text-align: center; margin-top: 20px;">
-                    <a href="?eliminar=todos" class="btn btn-warning" 
-                       onclick="return confirm('¿Estás seguro de eliminar TODAS las personas? Se restaurarán los datos por defecto.')">
-                        <i class="fas fa-trash-alt"></i> Restablecer a Datos por Defecto
-                    </a>
-                </div>
+                <button class="btn btn-warning" onclick="confirmarEliminacionTotal()">
+                    <i class="fas fa-trash-alt"></i> Restablecer a Datos por Defecto
+                </button>
+            </div>
             <?php else: ?>
                 <div class="empty-state">
                     <i class="fas fa-users-slash"></i>
@@ -568,41 +615,57 @@ function calcularEdadPromedio($personas) {
         <!-- Formulario para Nueva Persona -->
         <div class="card">
             <h2 class="card-title"><i class="fas fa-user-plus"></i> Agregar Nueva Persona</h2>
-            <form method="POST" action="">
+            <form method="POST" action="" id="formPersona" onsubmit="return validarFormulario(event)">
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Nombre *</label>
-                        <input type="text" name="nombre" class="form-control" placeholder="Ingrese el nombre" required 
-                               value="<?php echo htmlspecialchars($_POST['nombre'] ?? ''); ?>">
+                        <input type="text" name="nombre" class="form-control" placeholder="Ingrese el nombre" 
+                            value="<?php echo htmlspecialchars($_POST['nombre'] ?? ''); ?>"
+                            oninput="validarCampo(this, 'nombre')">
+                        <small class="error-message" id="errorNombre" style="color: #f72585; display: none; font-size: 0.8rem;"></small>
                     </div>
+                    
                     <div class="form-group">
                         <label>Apellido *</label>
-                        <input type="text" name="apellido" class="form-control" placeholder="Ingrese el apellido" required
-                               value="<?php echo htmlspecialchars($_POST['apellido'] ?? ''); ?>">
+                        <input type="text" name="apellido" class="form-control" placeholder="Ingrese el apellido"
+                            value="<?php echo htmlspecialchars($_POST['apellido'] ?? ''); ?>"
+                            oninput="validarCampo(this, 'apellido')">
+                        <small class="error-message" id="errorApellido" style="color: #f72585; display: none; font-size: 0.8rem;"></small>
                     </div>
+                    
                     <div class="form-group">
                         <label>Fecha de Nacimiento *</label>
-                        <input type="date" name="fechaNacimiento" class="form-control" required
-                               value="<?php echo htmlspecialchars($_POST['fechaNacimiento'] ?? ''); ?>">
+                        <input type="date" name="fechaNacimiento" class="form-control"
+                            value="<?php echo htmlspecialchars($_POST['fechaNacimiento'] ?? ''); ?>"
+                            onchange="validarCampo(this, 'fechaNacimiento')">
+                        <small class="error-message" id="errorFecha" style="color: #f72585; display: none; font-size: 0.8rem;"></small>
                     </div>
+                    
                     <div class="form-group">
                         <label>Email *</label>
-                        <input type="email" name="email" class="form-control" placeholder="ejemplo@email.com" required
-                               value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+                        <input type="email" name="email" class="form-control" placeholder="ejemplo@email.com"
+                            value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
+                            oninput="validarCampo(this, 'email')">
+                        <small class="error-message" id="errorEmail" style="color: #f72585; display: none; font-size: 0.8rem;"></small>
                     </div>
+                    
                     <div class="form-group">
                         <label>Teléfono *</label>
-                        <input type="tel" name="telefono" class="form-control" placeholder="Número de teléfono" required
-                               value="<?php echo htmlspecialchars($_POST['telefono'] ?? ''); ?>">
+                        <input type="tel" name="telefono" class="form-control" placeholder="Número de teléfono"
+                            value="<?php echo htmlspecialchars($_POST['telefono'] ?? ''); ?>"
+                            oninput="validarCampo(this, 'telefono')">
+                        <small class="error-message" id="errorTelefono" style="color: #f72585; display: none; font-size: 0.8rem;"></small>
                     </div>
+                    
                     <div class="form-group">
                         <label>Género *</label>
-                        <select name="genero" class="form-control" required>
+                        <select name="genero" class="form-control" onchange="validarCampo(this, 'genero')">
                             <option value="">Seleccionar género</option>
                             <option value="M" <?php echo ($_POST['genero'] ?? '') == 'M' ? 'selected' : ''; ?>>Masculino</option>
                             <option value="F" <?php echo ($_POST['genero'] ?? '') == 'F' ? 'selected' : ''; ?>>Femenino</option>
                             <option value="O" <?php echo ($_POST['genero'] ?? '') == 'O' ? 'selected' : ''; ?>>Otro</option>
                         </select>
+                        <small class="error-message" id="errorGenero" style="color: #f72585; display: none; font-size: 0.8rem;"></small>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success" style="width: 100%; padding: 15px; font-size: 1.1rem;">
@@ -610,7 +673,31 @@ function calcularEdadPromedio($personas) {
                 </button>
             </form>
         </div>
-    </div>
+
+    <!-- Footer -->
+<footer style="
+    background: linear-gradient(180deg, #f9f9f9, #ececec);
+    color: #222;
+    text-align: center;
+    padding: 15px 10px;
+    margin-top: 40px;
+    font-family: 'Poppins', sans-serif;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+">
+    <p style="
+        margin: 0;
+        font-weight: 600;
+        color: #1a1a1a;
+        text-shadow: 0 0 2px rgba(255,255,255,0.8);
+    ">
+        &copy; 2025 <span style="color: #0078ff;">Jair Alfonso Arias Cueca</span>. Todos los derechos reservados.
+    </p>
+</footer>
+
+ <!-- Incluir archivo de validaciones -->
+    <script src="validaciones.js"></script>
 
     <script>
     function realizarAccion(accion) {
@@ -662,27 +749,5 @@ function calcularEdadPromedio($personas) {
     <?php endif; ?>
     </script>
 
-    <!-- Footer -->
-<footer style="
-    background: linear-gradient(180deg, #f9f9f9, #ececec);
-    color: #222;
-    text-align: center;
-    padding: 15px 10px;
-    margin-top: 40px;
-    font-family: 'Poppins', sans-serif;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-">
-    <p style="
-        margin: 0;
-        font-weight: 600;
-        color: #1a1a1a;
-        text-shadow: 0 0 2px rgba(255,255,255,0.8);
-    ">
-        &copy; 2025 <span style="color: #0078ff;">Jair Alfonso Arias Cueca</span>. Todos los derechos reservados.
-    </p>
-</footer>
-</style>
 </body>
 </html>
