@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobrecarga de Métodos</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; }
+        .demo-area { 
+            background: #ecf0f1; 
+            padding: 20px; 
+            border-radius: 5px; 
+            margin: 20px 0;
+        }
+        button { 
+            background: #f39c12; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            border-radius: 5px; 
+            cursor: pointer;
+        }
+        button:hover { background: #e67e22; }
+        .result { 
+            background: #34495e; 
+            color: white; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin-top: 10px;
+            min-height: 50px;
+        }
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .input-group {
+            margin: 10px 0;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        .method-call {
+            background: #e67e22;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Sobrecarga de Métodos en JavaScript</h1>
+        <p>La sobrecarga permite que un método se comporte de manera diferente según los parámetros que recibe.</p>
+        
+        <div class="demo-area">
+            <h3>Ejemplo: Calculadora con Métodos Sobrecargados</h3>
+            <div class="code-block">
+class Calculadora {
+    // Método sumar sobrecargado
+    sumar(a, b, c) {
+        if (c !== undefined) {
+            return a + b + c;
+        } else if (b !== undefined) {
+            return a + b;
+        } else if (Array.isArray(a)) {
+            return a.reduce((total, num) => total + num, 0);
+        } else {
+            return a;
+        }
+    }
+    
+    // Método multiplicar sobrecargado
+    multiplicar(a, b, c) {
+        if (c !== undefined) {
+            return a * b * c;
+        } else if (b !== undefined) {
+            return a * b;
+        } else if (Array.isArray(a)) {
+            return a.reduce((total, num) => total * num, 1);
+        } else {
+            return a;
+        }
+    }
+    
+    // Método potencia sobrecargado
+    potencia(base, exponente) {
+        if (exponente === undefined) {
+            return base * base; // Cuadrado por defecto
+        }
+        return Math.pow(base, exponente);
+    }
+}
+
+// Uso de los métodos sobrecargados:
+const calc = new Calculadora();
+
+console.log(calc.sumar(5));           // 5
+console.log(calc.sumar(5, 3));        // 8
+console.log(calc.sumar(5, 3, 2));     // 10
+console.log(calc.sumar([1,2,3,4]));   // 10
+            </div>
+            
+            <div class="input-group">
+                <h4>Probar Método Sumar:</h4>
+                <input type="number" id="num1" placeholder="Número 1" value="5">
+                <input type="number" id="num2" placeholder="Número 2 (opcional)" value="3">
+                <input type="number" id="num3" placeholder="Número 3 (opcional)" value="2">
+                <button onclick="probarSumar()">Probar Sumar</button>
+            </div>
+            
+            <div class="input-group">
+                <h4>Probar Método Multiplicar:</h4>
+                <input type="number" id="mult1" placeholder="Número 1" value="2">
+                <input type="number" id="mult2" placeholder="Número 2 (opcional)" value="3">
+                <input type="number" id="mult3" placeholder="Número 3 (opcional)" value="4">
+                <button onclick="probarMultiplicar()">Probar Multiplicar</button>
+            </div>
+            
+            <div class="input-group">
+                <h4>Probar Método Potencia:</h4>
+                <input type="number" id="base" placeholder="Base" value="2">
+                <input type="number" id="exponente" placeholder="Exponente (opcional)" value="3">
+                <button onclick="probarPotencia()">Probar Potencia</button>
+            </div>
+            
+            <button onclick="probarArray()">Probar con Arrays</button>
+            <button onclick="limpiarResultados()">Limpiar</button>
+            
+            <div id="result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        class Calculadora {
+            // Método sumar sobrecargado
+            sumar(a, b, c) {
+                if (c !== undefined) {
+                    return a + b + c;
+                } else if (b !== undefined) {
+                    return a + b;
+                } else if (Array.isArray(a)) {
+                    return a.reduce((total, num) => total + num, 0);
+                } else {
+                    return a;
+                }
+            }
+            
+            // Método multiplicar sobrecargado
+            multiplicar(a, b, c) {
+                if (c !== undefined) {
+                    return a * b * c;
+                } else if (b !== undefined) {
+                    return a * b;
+                } else if (Array.isArray(a)) {
+                    return a.reduce((total, num) => total * num, 1);
+                } else {
+                    return a;
+                }
+            }
+            
+            // Método potencia sobrecargado
+            potencia(base, exponente) {
+                if (exponente === undefined) {
+                    return base * base; // Cuadrado por defecto
+                }
+                return Math.pow(base, exponente);
+            }
+            
+            // Método concatenar sobrecargado
+            concatenar(...args) {
+                if (args.length === 0) return "";
+                
+                // Si todos son strings, concatenar
+                if (args.every(arg => typeof arg === 'string')) {
+                    return args.join('');
+                }
+                // Si todos son números, sumar
+                else if (args.every(arg => typeof arg === 'number')) {
+                    return args.reduce((total, num) => total + num, 0);
+                }
+                // Mixto, convertir a string y concatenar
+                else {
+                    return args.join(' ');
+                }
+            }
+        }
+
+        const calc = new Calculadora();
+
+        function probarSumar() {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = document.getElementById('num2').value;
+            const num3 = document.getElementById('num3').value;
+            
+            let resultado;
+            let llamada = `calc.sumar(${num1}`;
+            
+            if (num3 !== '') {
+                resultado = calc.sumar(num1, parseFloat(num2), parseFloat(num3));
+                llamada += `, ${num2}, ${num3})`;
+            } else if (num2 !== '') {
+                resultado = calc.sumar(num1, parseFloat(num2));
+                llamada += `, ${num2})`;
+            } else {
+                resultado = calc.sumar(num1);
+                llamada += `)`;
+            }
+            
+            mostrarResultado(`sumar`, llamada, resultado);
+        }
+
+        function probarMultiplicar() {
+            const num1 = parseFloat(document.getElementById('mult1').value) || 1;
+            const num2 = document.getElementById('mult2').value;
+            const num3 = document.getElementById('mult3').value;
+            
+            let resultado;
+            let llamada = `calc.multiplicar(${num1}`;
+            
+            if (num3 !== '') {
+                resultado = calc.multiplicar(num1, parseFloat(num2), parseFloat(num3));
+                llamada += `, ${num2}, ${num3})`;
+            } else if (num2 !== '') {
+                resultado = calc.multiplicar(num1, parseFloat(num2));
+                llamada += `, ${num2})`;
+            } else {
+                resultado = calc.multiplicar(num1);
+                llamada += `)`;
+            }
+            
+            mostrarResultado(`multiplicar`, llamada, resultado);
+        }
+
+        function probarPotencia() {
+            const base = parseFloat(document.getElementById('base').value) || 0;
+            const exponente = document.getElementById('exponente').value;
+            
+            let resultado;
+            let llamada = `calc.potencia(${base}`;
+            
+            if (exponente !== '') {
+                resultado = calc.potencia(base, parseFloat(exponente));
+                llamada += `, ${exponente})`;
+            } else {
+                resultado = calc.potencia(base);
+                llamada += `)`;
+            }
+            
+            mostrarResultado(`potencia`, llamada, resultado);
+        }
+
+        function probarArray() {
+            const resultadoDiv = document.getElementById('result');
+            resultadoDiv.innerHTML += '<h4>🔢 Probando con Arrays:</h4>';
+            
+            const array1 = [1, 2, 3, 4, 5];
+            const array2 = [2, 3, 4];
+            
+            resultadoDiv.innerHTML += `
+                <div class="method-call">
+                    calc.sumar([1, 2, 3, 4, 5]) = ${calc.sumar(array1)}
+                </div>
+                <div class="method-call">
+                    calc.multiplicar([2, 3, 4]) = ${calc.multiplicar(array2)}
+                </div>
+                <div class="method-call">
+                    calc.concatenar("Hola", "Mundo") = "${calc.concatenar("Hola", "Mundo")}"
+                </div>
+                <div class="method-call">
+                    calc.concatenar(10, 20, 30) = ${calc.concatenar(10, 20, 30)}
+                </div>
+                <div class="method-call">
+                    calc.concatenar("Número:", 42) = "${calc.concatenar("Número:", 42)}"
+                </div>
+            `;
+        }
+
+        function mostrarResultado(metodo, llamada, resultado) {
+            const resultadoDiv = document.getElementById('result');
+            resultadoDiv.innerHTML += `
+                <div class="method-call">
+                    <strong>${metodo}:</strong> ${llamada} = ${resultado}
+                </div>
+            `;
+        }
+
+        function limpiarResultados() {
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

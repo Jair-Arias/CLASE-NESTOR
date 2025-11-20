@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polimorfismo</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; }
+        .demo-area { 
+            background: #ecf0f1; 
+            padding: 20px; 
+            border-radius: 5px; 
+            margin: 20px 0;
+        }
+        button { 
+            background: #e74c3c; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            border-radius: 5px; 
+            cursor: pointer;
+        }
+        button:hover { background: #c0392b; }
+        .result { 
+            background: #34495e; 
+            color: white; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin-top: 10px;
+            min-height: 50px;
+        }
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .animal-card {
+            background: #3498db;
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎭 Polimorfismo en JavaScript</h1>
+        <p>El polimorfismo permite que diferentes clases respondan al mismo método de manera diferente.</p>
+        
+        <div class="demo-area">
+            <h3>Ejemplo: Sonidos de Animales</h3>
+            <div class="code-block">
+// Clase base
+class Animal {
+    constructor(nombre) {
+        this.nombre = nombre;
+    }
+    
+    // Método que será sobrescrito (polimorfismo)
+    hacerSonido() {
+        return "El animal hace un sonido";
+    }
+}
+
+// Clases hijas que sobrescriben el método
+class Perro extends Animal {
+    hacerSonido() {
+        return "🐶 ¡Guau guau!";
+    }
+}
+
+class Gato extends Animal {
+    hacerSonido() {
+        return "🐱 ¡Miau miau!";
+    }
+}
+
+class Vaca extends Animal {
+    hacerSonido() {
+        return "🐮 ¡Muuu!";
+    }
+}
+
+class Pato extends Animal {
+    hacerSonido() {
+        return "🦆 ¡Cuac cuac!";
+    }
+}
+            </div>
+            
+            <button onclick="demoPolimorfismo()">Probar Polimorfismo</button>
+            <button onclick="procesarAnimales()">Procesar Animales</button>
+            <button onclick="limpiarResultados()">Limpiar</button>
+            
+            <div id="result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Clase base
+        class Animal {
+            constructor(nombre) {
+                this.nombre = nombre;
+            }
+            
+            // Método que será sobrescrito (polimorfismo)
+            hacerSonido() {
+                return "El animal hace un sonido";
+            }
+        }
+
+        // Clases hijas que sobrescriben el método
+        class Perro extends Animal {
+            hacerSonido() {
+                return "🐶 ¡Guau guau!";
+            }
+        }
+
+        class Gato extends Animal {
+            hacerSonido() {
+                return "🐱 ¡Miau miau!";
+            }
+        }
+
+        class Vaca extends Animal {
+            hacerSonido() {
+                return "🐮 ¡Muuu!";
+            }
+        }
+
+        class Pato extends Animal {
+            hacerSonido() {
+                return "🦆 ¡Cuac cuac!";
+            }
+        }
+
+        function demoPolimorfismo() {
+            const resultado = document.getElementById('result');
+            resultado.innerHTML = '<h4>🎵 Sonidos de Animales:</h4>';
+            
+            const animales = [
+                new Perro("Rex"),
+                new Gato("Mimi"),
+                new Vaca("Lola"),
+                new Pato("Lucas")
+            ];
+            
+            animales.forEach(animal => {
+                resultado.innerHTML += `
+                    <div class="animal-card">
+                        <strong>${animal.nombre}:</strong> ${animal.hacerSonido()}
+                    </div>
+                `;
+            });
+        }
+
+        function procesarAnimales() {
+            const resultado = document.getElementById('result');
+            resultado.innerHTML = '<h4>🔄 Procesando Animales (Polimorfismo en acción):</h4>';
+            
+            // Función que acepta cualquier animal
+            function procesarAnimal(animal) {
+                return animal.hacerSonido();
+            }
+            
+            const animales = [
+                new Perro("Firulais"),
+                new Gato("Garfield"),
+                new Vaca("Margarita"),
+                new Pato("Donald"),
+                new Perro("Snoopy")
+            ];
+            
+            animales.forEach((animal, index) => {
+                resultado.innerHTML += `
+                    <p>Animal ${index + 1}: ${procesarAnimal(animal)}</p>
+                `;
+            });
+            
+            resultado.innerHTML += `
+                <p><strong>💡 Nota:</strong> Todos los animales responden al mismo método 
+                <code>hacerSonido()</code> pero cada uno lo implementa de forma diferente.</p>
+            `;
+        }
+
+        function limpiarResultados() {
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

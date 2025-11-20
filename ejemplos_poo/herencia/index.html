@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herencia</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; }
+        .demo-area { 
+            background: #ecf0f1; 
+            padding: 20px; 
+            border-radius: 5px; 
+            margin: 20px 0;
+        }
+        button { 
+            background: #3498db; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            border-radius: 5px; 
+            cursor: pointer;
+        }
+        button:hover { background: #2980b9; }
+        .result { 
+            background: #34495e; 
+            color: white; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin-top: 10px;
+            min-height: 50px;
+        }
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 Herencia en JavaScript</h1>
+        <p>La herencia permite que una clase herede propiedades y métodos de otra clase.</p>
+        
+        <div class="demo-area">
+            <h3>Ejemplo: Vehículos</h3>
+            <div class="code-block">
+// Clase Padre
+class Vehiculo {
+    constructor(marca, modelo) {
+        this.marca = marca;
+        this.modelo = modelo;
+    }
+    
+    acelerar() {
+        return `${this.marca} ${this.modelo} está acelerando...`;
+    }
+    
+    frenar() {
+        return `${this.marca} ${this.modelo} está frenando...`;
+    }
+}
+
+// Clase Hija que hereda de Vehiculo
+class Coche extends Vehiculo {
+    constructor(marca, modelo, tipo) {
+        super(marca, modelo); // Llama al constructor del padre
+        this.tipo = tipo;
+    }
+    
+    abrirMaletero() {
+        return `${this.marca} ${this.modelo} - Maletero abierto`;
+    }
+}
+
+// Clase Hija que hereda de Vehiculo
+class Motocicleta extends Vehiculo {
+    constructor(marca, modelo, cilindrada) {
+        super(marca, modelo);
+        this.cilindrada = cilindrada;
+    }
+    
+    hacerCaballito() {
+        return `${this.marca} ${this.modelo} está haciendo un caballito! 🏍️`;
+    }
+}
+            </div>
+            
+            <button onclick="demoHerencia()">Probar Herencia</button>
+            <button onclick="demoMetodos()">Probar Métodos</button>
+            <button onclick="limpiarResultados()">Limpiar</button>
+            
+            <div id="result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Clase Padre
+        class Vehiculo {
+            constructor(marca, modelo) {
+                this.marca = marca;
+                this.modelo = modelo;
+            }
+            
+            acelerar() {
+                return `${this.marca} ${this.modelo} está acelerando...`;
+            }
+            
+            frenar() {
+                return `${this.marca} ${this.modelo} está frenando...`;
+            }
+        }
+
+        // Clase Hija que hereda de Vehiculo
+        class Coche extends Vehiculo {
+            constructor(marca, modelo, tipo) {
+                super(marca, modelo);
+                this.tipo = tipo;
+            }
+            
+            abrirMaletero() {
+                return `${this.marca} ${this.modelo} - Maletero abierto`;
+            }
+        }
+
+        // Clase Hija que hereda de Vehiculo
+        class Motocicleta extends Vehiculo {
+            constructor(marca, modelo, cilindrada) {
+                super(marca, modelo);
+                this.cilindrada = cilindrada;
+            }
+            
+            hacerCaballito() {
+                return `${this.marca} ${this.modelo} está haciendo un caballito! 🏍️`;
+            }
+        }
+
+        function demoHerencia() {
+            const resultado = document.getElementById('result');
+            resultado.innerHTML = '';
+            
+            // Crear instancias
+            const miCoche = new Coche('Toyota', 'Corolla', 'Sedán');
+            const miMoto = new Motocicleta('Yamaha', 'MT-07', '700cc');
+            
+            resultado.innerHTML += `
+                <h4>🚗 Mi Coche:</h4>
+                <p>Marca: ${miCoche.marca}</p>
+                <p>Modelo: ${miCoche.modelo}</p>
+                <p>Tipo: ${miCoche.tipo}</p>
+                <p>Método heredado: ${miCoche.acelerar()}</p>
+                <p>Método propio: ${miCoche.abrirMaletero()}</p>
+                
+                <h4>🏍️ Mi Moto:</h4>
+                <p>Marca: ${miMoto.marca}</p>
+                <p>Modelo: ${miMoto.modelo}</p>
+                <p>Cilindrada: ${miMoto.cilindrada}</p>
+                <p>Método heredado: ${miMoto.frenar()}</p>
+                <p>Método propio: ${miMoto.hacerCaballito()}</p>
+            `;
+        }
+
+        function demoMetodos() {
+            const resultado = document.getElementById('result');
+            resultado.innerHTML = '<h4>🔧 Probando Métodos:</h4>';
+            
+            const vehiculos = [
+                new Coche('Honda', 'Civic', 'Compacto'),
+                new Motocicleta('Kawasaki', 'Ninja', '600cc'),
+                new Coche('Ford', 'Mustang', 'Deportivo')
+            ];
+            
+            vehiculos.forEach((vehiculo, index) => {
+                resultado.innerHTML += `
+                    <p><strong>Vehículo ${index + 1}:</strong></p>
+                    <p>• ${vehiculo.acelerar()}</p>
+                    <p>• ${vehiculo.frenar()}</p>
+                `;
+                
+                // Métodos específicos de cada clase
+                if (vehiculo instanceof Coche) {
+                    resultado.innerHTML += `<p>• ${vehiculo.abrirMaletero()}</p>`;
+                } else if (vehiculo instanceof Motocicleta) {
+                    resultado.innerHTML += `<p>• ${vehiculo.hacerCaballito()}</p>`;
+                }
+            });
+        }
+
+        function limpiarResultados() {
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
