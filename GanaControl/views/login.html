@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GanaControl - Sistema de Gestión Ganadera">
+    <meta name="author" content="GanaControl">
+    <title>Iniciar Sesión - GanaControl</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="img/logo.jpeg">
+    
+    <!-- JavaScript para debug -->
+    <script>
+        // Interceptar el formulario para debug
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            
+            form.addEventListener('submit', function(e) {
+                console.log('🔍 Formulario enviado');
+                console.log('Email:', document.querySelector('[name="email"]').value);
+                console.log('Password:', document.querySelector('[name="password"]').value);
+                
+                // Mostrar mensaje de carga
+                const button = form.querySelector('button[type="submit"]');
+                button.innerHTML = 'Procesando...';
+                button.disabled = true;
+            });
+        });
+    </script>
+</head>
+<body class="relative min-h-screen flex flex-col">
+    
+    <!-- Fondo difuminado -->
+    <div class="fixed inset-0 z-[-10]">
+        <img src="img/fondo-login.jpeg" 
+             alt="Fondo GanaControl" 
+             class="w-full h-full object-cover filter brightness-75 blur-sm">
+        <div class="absolute inset-0 bg-black/20"></div>
+    </div>
+
+    <!-- Logo arriba izquierda -->
+    <div class="absolute top-4 left-4 z-10">
+        <img src="img/logo.jpeg" 
+             alt="Logo GanaControl" 
+             class="w-16 h-16 rounded-full shadow-lg border-2 border-white">
+    </div>
+
+    <!-- Contenedor principal centrado -->
+    <div class="relative z-10 flex-1 flex items-center justify-center px-4 mt-10">
+        <div class="bg-black/50 backdrop-blur-md p-12 rounded-3xl shadow-2xl w-full max-w-sm border border-white/20">
+            
+            <!-- Icono usuario -->
+            <div class="flex justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                     class="h-16 w-16 text-white opacity-90" 
+                     fill="none" 
+                     viewBox="0 0 24 24" 
+                     stroke="currentColor">
+                    <path stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d="M5.121 17.804A13.937 13.937 0 0112 15c2.485 0 4.77.755 6.879 2.046M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+            </div>
+
+            <!-- Título -->
+            <h2 class="text-3xl font-bold text-center text-green-700 mb-8 drop-shadow-lg">
+                Iniciar Sesión
+            </h2>
+
+            <!-- Formulario CORREGIDO -->
+            <form id="loginForm" method="POST" action="index.php">
+                <input type="hidden" name="action" value="autenticar">
+
+                <input type="email" 
+                       name="email" 
+                       placeholder="Correo Electrónico" 
+                       class="login-email w-full px-5 py-3 rounded-full bg-white/10 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-green-500 transition" 
+                       required
+                       value="test@test.com"> <!-- Valor por defecto para testing -->
+
+                <input type="password" 
+                       name="password" 
+                       placeholder="Contraseña" 
+                       class="login-password w-full px-5 py-3 rounded-full bg-white/10 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-green-500 transition" 
+                       required
+                       value="Test1234!"> <!-- Valor por defecto para testing -->
+
+                <button type="submit" 
+                        class="px-6 py-3 rounded-full bg-green-700 text-white font-semibold hover:bg-green-800 transition shadow-lg w-full mt-4">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <!-- Subtítulo -->
+            <p class="mt-6 text-center text-sm text-gray-300 italic">
+                ¡Tu vaquero virtual!
+            </p>
+
+            <!-- Link a registro -->
+            <p class="mt-4 text-sm text-center text-gray-300">
+                ¿No tienes cuenta? 
+                <a href="index.php?action=register" class="text-green-400 font-semibold hover:underline">
+                    Regístrate aquí
+                </a>
+            </p>
+
+            <!-- Enlaces de debug -->
+            <div class="mt-4 text-center">
+                <p class="text-xs text-gray-400">Problemas con el login? Prueba:</p>
+                <a href="debug_login_simple.php" class="text-xs text-blue-400 hover:underline">Debug Simple</a> | 
+                <a href="login_directo.php" class="text-xs text-blue-400 hover:underline">Login Directo</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer transparente al final -->
+    <footer class="w-full text-white text-center py-6 mt-auto z-10">
+        <p class="text-sm">
+            &copy; 2025 GanaControl - Todos los derechos reservados
+        </p>
+        <p class="text-xs mt-1 text-gray-300">
+            Sistema de Gestión Ganadera Profesional
+        </p>
+    </footer>
+</body>
+</html>
