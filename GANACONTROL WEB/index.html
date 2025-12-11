@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bienvenido - GanaControl</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="relative min-h-screen font-sans">
+
+  <!-- Imagen de fondo completa y borrosa -->
+  <div class="fixed inset-0 bg-cover bg-center filter blur-sm z-[-10]" 
+       style="background-image: url('https://i.pinimg.com/1200x/56/ab/42/56ab42f6038d74b4185dc42282b79c8d.jpg');"></div>
+  <div class="fixed inset-0 bg-black/50 z-[-5]"></div> <!-- superposición oscura -->
+
+  <!-- Barra superior tipo índice estilizada -->
+  <header class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-md shadow-lg z-50 rounded-b-lg">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center gap-6">
+        <img src="img/logo.jpeg" alt="Logo" class="w-12 h-12 rounded-full border-2 border-green-600 shadow-md">
+        <nav class="flex gap-6">
+          <a href="#quienes-somos" class="text-gray-800 hover:text-green-600 font-semibold transition">Quiénes somos</a>
+          <a href="#vision" class="text-gray-800 hover:text-green-600 font-semibold transition">Visión</a>
+          <a href="#mision" class="text-gray-800 hover:text-green-600 font-semibold transition">Misión</a>
+          <a href="#ofrecemos" class="text-gray-800 hover:text-green-600 font-semibold transition">Qué ofrecemos</a>
+          <a href="#contacto" class="text-gray-800 hover:text-green-600 font-semibold transition">Contacto</a>
+        </nav>
+      </div>
+      <!-- CAMBIO: Agregar onclick directamente -->
+      <button onclick="window.location.href='enter.html'" class="px-5 py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 font-semibold transition shadow-md">Comenzar</button>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="pt-28 relative z-10">
+
+    <!-- Sección Quiénes somos -->
+    <section id="quienes-somos" class="max-w-4xl mx-auto my-16 p-8 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border-l-4 border-green-700">
+      <h2 class="text-3xl font-bold mb-4 text-green-700">Quiénes somos</h2>
+      <p class="text-gray-700 text-lg leading-relaxed">
+        GanaControl es un sistema especializado en la gestión integral de fincas ganaderas, 
+        ofreciendo control de inventario, seguimiento del ganado y herramientas de administración.
+      </p>
+    </section>
+
+    <!-- Sección Visión -->
+    <section id="vision" class="max-w-4xl mx-auto my-16 p-8 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border-l-4 border-green-700">
+      <h2 class="text-3xl font-bold mb-4 text-green-700">Visión</h2>
+      <p class="text-gray-700 text-lg leading-relaxed">
+        Ser el software líder en gestión ganadera en Colombia y Latinoamérica, facilitando la administración eficiente de los recursos y promoviendo la sostenibilidad.
+      </p>
+    </section>
+
+    <!-- Sección Misión -->
+    <section id="mision" class="max-w-4xl mx-auto my-16 p-8 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border-l-4 border-green-700">
+      <h2 class="text-3xl font-bold mb-4 text-green-700">Misión</h2>
+      <p class="text-gray-700 text-lg leading-relaxed">
+        Brindar soluciones tecnológicas innovadoras que optimicen la gestión de fincas ganaderas, asegurando precisión, eficiencia y facilidad de uso para nuestros usuarios.
+      </p>
+    </section>
+
+    <!-- Sección Qué ofrecemos -->
+    <section id="ofrecemos" class="max-w-4xl mx-auto my-16 p-8 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border-l-4 border-green-700">
+      <h2 class="text-3xl font-bold mb-4 text-green-700">Qué ofrecemos</h2>
+      <ul class="list-disc list-inside text-gray-700 text-lg leading-relaxed">
+        <li>Control de inventario de ganado y productos agrícolas.</li>
+        <li>Registro de eventos y seguimiento de animales.</li>
+        <li>Generación de reportes de producción y ventas.</li>
+        <li>Acceso seguro para administradores y trabajadores.</li>
+      </ul>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contacto" class="max-w-4xl mx-auto my-16 p-8 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border-l-4 border-green-700 mb-32">
+      <h2 class="text-3xl font-bold mb-4 text-green-700">Contacto</h2>
+      <p class="text-gray-700 text-lg leading-relaxed">
+        Para más información, escríbenos a <strong>info@ganacontrol.com</strong> o llama al <strong>+57 301 7330341</strong>.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Footer transparente al final -->
+  <footer class="w-full text-white text-center py-6 mt-auto">
+    &copy; 2025 GanaControl - Todos los derechos reservados
+  </footer>
+
+  <!-- AGREGAR ESTA LÍNEA -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
+
+

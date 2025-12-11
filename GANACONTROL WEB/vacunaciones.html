@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Vacunaciones - GanaControl</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen relative font-sans bg-gray-100">
+
+  <!-- Fondo elegante -->
+  <div class="fixed inset-0 z-[-1]">
+    <img src="img/fondo-vacunaciones.jpg" alt="Fondo Vacunaciones" 
+         class="w-full h-full object-cover filter brightness-70">
+    <div class="absolute inset-0 bg-black/30"></div>
+  </div>
+
+  <!-- Logo esquina superior izquierda -->
+  <div class="absolute top-4 left-4 z-10">
+    <img src="img/logo.jpeg" alt="Logo GanaControl" 
+         class="h-16 w-16 rounded-full border-2 border-white shadow-lg">
+  </div>
+
+  <!-- Botón atrás transparente con icono SVG -->
+  <div class="absolute top-4 right-4 z-10">
+    <a href="dashboard.html" 
+       class="flex items-center gap-2 px-4 py-2 bg-white/20 text-white backdrop-blur-md rounded-xl hover:bg-white/30 transition">
+      <!-- Icono SVG de flecha izquierda -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <span class="font-medium">Volver</span>
+    </a>
+  </div>
+
+  <!-- Contenido principal -->
+  <main class="flex flex-col items-center justify-start min-h-screen pt-24 pb-24 px-4">
+
+    <!-- Título principal -->
+    <h1 class="text-4xl font-extrabold mb-8 text-white drop-shadow-xl text-center tracking-tight">
+      Vacunación y Salud Animal
+    </h1>
+
+    <!-- Recuadro central -->
+    <div class="bg-white/90 backdrop-blur-lg w-full max-w-5xl rounded-3xl shadow-2xl p-8 space-y-12 border border-gray-200">
+
+      <!-- Sección: Registrar Nueva Vacuna -->
+      <section>
+        <h2 class="text-2xl font-semibold mb-5 text-gray-800">Registrar Nueva Vacuna</h2>
+        <form class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <input type="text" placeholder="Nombre de la Vacuna" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacuna-nombre">
+          <input type="text" placeholder="Enfermedad que Previene" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacuna-enfermedad">
+          <input type="number" placeholder="Dosis (ml)" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacuna-dosis">
+          <input type="text" placeholder="Proveedor" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacuna-proveedor">
+          <input type="date" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacuna-fecha">
+          <input type="text" placeholder="Lote de Producción" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacuna-lote">
+          <textarea placeholder="Observaciones" class="border p-3 rounded-lg shadow-sm col-span-2 focus:ring-2 focus:ring-green-500 focus:outline-none vacuna-observaciones"></textarea>
+          <button type="submit" class="bg-green-600 text-white py-3 rounded-xl col-span-2 hover:bg-green-700 shadow-lg transition flex items-center justify-center gap-2">
+            Guardar Vacuna
+          </button>
+        </form>
+      </section>
+
+      <!-- Sección: Registrar Vacunación Realizada -->
+      <section>
+        <h2 class="text-2xl font-semibold mb-5 text-gray-800">Registrar Vacunación Realizada</h2>
+        <form class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <select class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacunacion-animal">
+            <option value="">Seleccionar Animal (ej: G001)</option>
+            <option>G001</option>
+            <option>G002</option>
+          </select>
+          <select class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacunacion-lote">
+            <option value="">Seleccionar Lote de Ganado</option>
+            <option>Lote 1</option>
+            <option>Lote 2</option>
+          </select>
+          <select class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacunacion-vacuna">
+            <option value="">Seleccionar Vacuna</option>
+            <option>Fiebre Aftosa</option>
+            <option>Brucelosis</option>
+          </select>
+          <select class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacunacion-tipo">
+            <option value="">Tipo de aplicación</option>
+            <option>Subcutánea</option>
+            <option>Intramuscular</option>
+          </select>
+          <input type="date" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacunacion-fecha-aplicacion">
+          <input type="date" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacunacion-fecha-refuerzo">
+          <input type="number" placeholder="Cantidad administrada (ml)" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacunacion-cantidad">
+          <input type="text" placeholder="Responsable" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none vacunacion-responsable">
+          <textarea placeholder="Observaciones" class="border p-3 rounded-lg shadow-sm col-span-2 focus:ring-2 focus:ring-green-500 focus:outline-none vacunacion-observaciones"></textarea>
+          <button type="submit" class="bg-green-600 text-white py-3 rounded-xl col-span-2 hover:bg-green-700 shadow-lg transition flex items-center justify-center gap-2">
+            Guardar Vacunación
+          </button>
+        </form>
+      </section>
+
+      <!-- Botón Historial -->
+      <section>
+        <button id="toggleHistorial" class="w-full bg-gray-800 text-white py-3 rounded-xl shadow-lg hover:bg-gray-900 transition flex items-center justify-center gap-2 font-semibold">
+          Historial de Vacunaciones
+        </button>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Modal Historial -->
+  <div id="modalHistorial" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50">
+    <div class="bg-white w-11/12 max-w-6xl rounded-2xl p-6 shadow-2xl overflow-auto max-h-[90vh] relative">
+
+      <!-- Botón cerrar -->
+      <button onclick="cerrarHistorial()" 
+              class="absolute top-3 right-3 text-gray-600 hover:text-red-600 text-xl font-bold">✖</button>
+
+      <h2 class="text-3xl font-bold mb-6 text-center text-green-700">Historial de Vacunaciones</h2>
+
+      <!-- Filtros -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <select id="filtroAnimal" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none">
+          <option>Filtrar por Animal</option>
+          <option>G001</option>
+          <option>G002</option>
+        </select>
+        <select id="filtroLote" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none">
+          <option>Filtrar por Lote</option>
+          <option>Lote 1</option>
+          <option>Lote 2</option>
+        </select>
+        <select id="filtroVacuna" class="border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none">
+          <option>Filtrar por Vacuna</option>
+          <option>Fiebre Aftosa</option>
+          <option>Brucelosis</option>
+        </select>
+      </div>
+
+      <!-- Tabla historial -->
+      <table class="w-full border text-sm table-auto">
+        <thead class="bg-gray-200 text-gray-700 uppercase text-xs">
+          <tr>
+            <th class="p-3 border">Animal / Lote</th>
+            <th class="p-3 border">Vacuna</th>
+            <th class="p-3 border">Tipo Aplicación</th>
+            <th class="p-3 border">Fecha Aplicación</th>
+            <th class="p-3 border">Fecha Refuerzo</th>
+            <th class="p-3 border">Cantidad (ml)</th>
+            <th class="p-3 border">Responsable</th>
+            <th class="p-3 border">Observaciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaHistorial" class="text-gray-800">
+          <tr class="hover:bg-gray-100">
+            <td class="p-2 border">G001</td>
+            <td class="p-2 border">Fiebre Aftosa</td>
+            <td class="p-2 border">Subcutánea</td>
+            <td class="p-2 border">02/09/2025</td>
+            <td class="p-2 border">02/12/2025</td>
+            <td class="p-2 border">5</td>
+            <td class="p-2 border">Carlos Pérez</td>
+            <td class="p-2 border">Sin observaciones</td>
+          </tr>
+          <tr class="hover:bg-gray-100">
+            <td class="p-2 border">Lote 2</td>
+            <td class="p-2 border">Brucelosis</td>
+            <td class="p-2 border">Intramuscular</td>
+            <td class="p-2 border">10/09/2025</td>
+            <td class="p-2 border">10/12/2025</td>
+            <td class="p-2 border">10</td>
+            <td class="p-2 border">María López</td>
+            <td class="p-2 border">Refuerzo aplicado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer transparente al final -->
+  <footer class="w-full text-white text-center py-6 mt-auto">
+    &copy; 2025 GanaControl - Todos los derechos reservados
+  </footer>
+
+  <!-- AGREGAR ESTA LÍNEA -->
+  <script src="js/app.js"></script>
+
+  <script>
+    // Funciones del modal (mantenidas para compatibilidad)
+    const toggleHistorial = document.getElementById('toggleHistorial');
+    const modalHistorial = document.getElementById('modalHistorial');
+
+    if (toggleHistorial) {
+      toggleHistorial.addEventListener('click', () => {
+        modalHistorial.classList.remove('hidden');
+        modalHistorial.classList.add('flex');
+      });
+    }
+
+    function cerrarHistorial() {
+      modalHistorial.classList.add('hidden');
+      modalHistorial.classList.remove('flex');
+    }
+
+    if (modalHistorial) {
+      modalHistorial.addEventListener('click', function(e) {
+        if(e.target === this) cerrarHistorial();
+      });
+    }
+  </script>
+
+</body>
+</html>

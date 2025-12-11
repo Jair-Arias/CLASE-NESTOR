@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reproducción - GanaControl</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex flex-col relative font-sans">
+
+  <!-- Fondo original -->
+  <div class="fixed inset-0 -z-10 bg-cover bg-center" style="background-image: url('img/fondo-reproduccion.jpg');"></div>
+  <div class="fixed inset-0 -z-5 bg-black/40"></div>
+
+  <!-- Logo esquina superior izquierda -->
+  <div class="absolute top-4 left-4 z-20">
+    <a href="dashboard.html">
+      <img src="img/logo.jpeg" alt="Logo GanaControl" class="h-16 w-16 rounded-full border-2 border-white shadow-lg">
+    </a>
+  </div>
+
+  <!-- Botón volver transparente con icono -->
+  <div class="absolute top-4 right-4 z-20">
+    <a href="dashboard.html" class="flex items-center gap-2 px-4 py-2 bg-white/20 text-white backdrop-blur-md rounded-xl hover:bg-white/30 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <span class="font-medium">Volver</span>
+    </a>
+  </div>
+
+  <!-- Contenido principal -->
+  <main class="flex-grow flex flex-col items-center justify-start pt-24 px-6 text-white w-full">
+
+    <h1 class="text-4xl font-extrabold mb-8 text-center drop-shadow-xl tracking-tight">
+      Reproducción
+    </h1>
+
+    <!-- Formulario -->
+    <div class="bg-white/90 backdrop-blur-lg w-full max-w-4xl rounded-3xl p-8 shadow-2xl border border-gray-200 text-gray-800 space-y-6">
+      <h2 class="text-2xl font-semibold mb-4">Registrar Evento Reproductivo</h2>
+      <form class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <select class="p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none reproduccion-animal">
+          <option value="">Seleccionar Animal</option>
+          <option>Vaca Alfa 001</option>
+          <option>Vaca Reina 102</option>
+          <option>Toro Bravo 210</option>
+          <option>Vaca Estrella 305</option>
+        </select>
+        <select class="p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none reproduccion-evento">
+          <option value="">Evento</option>
+          <option>Celo</option>
+          <option>Inseminación</option>
+          <option>Parto</option>
+          <option>Monta</option>
+        </select>
+        <input type="date" class="p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none reproduccion-fecha">
+        <input type="text" placeholder="Responsable" class="p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none reproduccion-responsable">
+        <select class="p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none reproduccion-resultado">
+          <option value="">Resultado</option>
+          <option>Positivo</option>
+          <option>Negativo</option>
+          <option>Pendiente</option>
+        </select>
+        <input type="text" placeholder="Método utilizado (IA, monta...)" class="p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none reproduccion-metodo">
+        <textarea class="col-span-1 sm:col-span-2 p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none reproduccion-observaciones" placeholder="Observaciones"></textarea>
+
+        <!-- Botones -->
+        <div class="col-span-1 sm:col-span-2 flex justify-center gap-4 mt-2">
+          <button type="submit" class="flex items-center gap-2 px-5 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-lg transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Guardar
+          </button>
+          <button type="button" onclick="abrirHistorial()" class="flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m0 0H4m4 0l4 4M4 21v-4m0 0h4m-4 0l4-4" />
+            </svg>
+            Historial
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Modal Historial -->
+  <div id="modalHistorial" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50">
+    <div class="bg-white w-11/12 max-w-3xl rounded-2xl p-6 shadow-2xl overflow-auto max-h-[90vh] relative">
+      <button onclick="cerrarHistorial()" class="absolute top-3 right-3 text-gray-600 hover:text-red-600 text-xl font-bold">✖</button>
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Historial de Reproducción</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <input type="text" placeholder="Buscar por Animal" class="p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none">
+        <select class="p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none">
+          <option>Filtrar por Evento</option>
+          <option>Celo</option>
+          <option>Inseminación</option>
+          <option>Parto</option>
+        </select>
+        <input type="date" class="p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none">
+      </div>
+
+      <table class="w-full border border-gray-300 text-sm">
+        <thead class="bg-gray-200 text-gray-700 uppercase text-xs">
+          <tr>
+            <th class="p-3 border">Animal</th>
+            <th class="p-3 border">Evento</th>
+            <th class="p-3 border">Fecha</th>
+            <th class="p-3 border">Responsable</th>
+            <th class="p-3 border">Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-2 border">Vaca Alfa 001</td>
+            <td class="p-2 border">Celo</td>
+            <td class="p-2 border">2025-09-20</td>
+            <td class="p-2 border">Carlos</td>
+            <td class="p-2 border">Positivo</td>
+          </tr>
+          <tr>
+            <td class="p-2 border">Vaca Reina 102</td>
+            <td class="p-2 border">Inseminación</td>
+            <td class="p-2 border">2025-09-21</td>
+            <td class="p-2 border">Laura</td>
+            <td class="p-2 border">Pendiente</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer transparente al final -->
+  <footer class="w-full text-white text-center py-6 mt-auto">
+    &copy; 2025 GanaControl - Todos los derechos reservados
+  </footer>
+
+  <!-- AGREGAR ESTA LÍNEA -->
+  <script src="js/app.js"></script>
+
+  <script>
+    // Funciones del modal (mantenidas para compatibilidad)
+    function abrirHistorial() {
+      document.getElementById("modalHistorial").classList.remove("hidden");
+      document.getElementById("modalHistorial").classList.add("flex");
+    }
+    function cerrarHistorial() {
+      document.getElementById("modalHistorial").classList.add("hidden");
+      document.getElementById("modalHistorial").classList.remove("flex");
+    }
+    document.getElementById("modalHistorial").addEventListener("click", function(e) {
+      if (e.target === this) cerrarHistorial();
+    });
+  </script>
+
+</body>
+</html>
+
+
+

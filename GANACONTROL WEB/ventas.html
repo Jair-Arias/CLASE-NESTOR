@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ventas - GanaControl</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-screen relative overflow-x-hidden font-sans">
+
+  <!-- Fondo elegante -->
+  <div class="fixed inset-0 bg-cover bg-center filter blur-sm z-[-10]" style="background-image: url('img/fondo-ventas.jpg');"></div>
+  <div class="fixed inset-0 bg-black/50 z-[-5]"></div>
+
+  <!-- Logo y botón atrás -->
+  <div class="absolute top-4 left-4 z-10">
+    <a href="dashboard.html">
+      <img src="img/logo.jpeg" alt="Logo" class="h-16 w-16 rounded-full shadow-lg border-2 border-white">
+    </a>
+  </div>
+  <div class="absolute top-6 right-6 z-10">
+    <a href="dashboard.html" 
+       class="px-5 py-2 bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-900 hover:to-black 
+              text-white rounded-lg shadow-lg font-medium transition">
+      ← Volver
+    </a>
+  </div>
+
+  <!-- Contenido -->
+  <main class="flex flex-col items-center justify-start pt-24 px-6 text-white min-h-screen">
+    <h1 class="text-4xl font-extrabold mb-10 drop-shadow-2xl tracking-wide text-center">
+      Ventas
+    </h1>
+
+    <!-- Formulario -->
+    <div class="bg-white/95 w-4/5 max-w-5xl rounded-2xl p-8 text-gray-900 shadow-2xl border border-gray-200">
+      <h2 class="text-2xl font-semibold mb-6 text-green-800 border-b pb-2">Registrar Venta</h2>
+
+      <form class="grid grid-cols-2 gap-6">
+        <!-- Tipo de venta -->
+        <select class="p-3 border rounded-lg shadow-sm ventas-tipo">
+          <option value="">Seleccionar tipo de venta</option>
+          <option>Producto</option>
+          <option>Animal</option>
+        </select>
+
+        <!-- Producto/Animal -->
+        <select class="p-3 border rounded-lg shadow-sm ventas-producto">
+          <option value="">Seleccionar producto o animal</option>
+          <option>Heno</option>
+          <option>Forraje</option>
+          <option>Concentrado</option>
+          <option>Leche</option>
+          <option>Carne</option>
+          <option>Vaca G001</option>
+          <option>Becerro B001</option>
+        </select>
+
+        <!-- Cantidad -->
+        <input type="number" placeholder="Cantidad" class="p-3 border rounded-lg shadow-sm ventas-cantidad">
+
+        <!-- Unidad -->
+        <select class="p-3 border rounded-lg shadow-sm ventas-unidad">
+          <option value="">Unidad</option>
+          <option>Kilos</option>
+          <option>Litros</option>
+          <option>Sacos</option>
+        </select>
+
+        <!-- Precio unitario -->
+        <input type="number" placeholder="Precio unitario" class="p-3 border rounded-lg shadow-sm ventas-precio">
+
+        <!-- Total -->
+        <input type="number" placeholder="Total" class="p-3 border rounded-lg shadow-sm bg-gray-100 ventas-total" readonly>
+
+        <!-- Cliente -->
+        <input type="text" placeholder="Nombre del cliente" class="p-3 border rounded-lg shadow-sm ventas-cliente">
+
+        <!-- Fecha -->
+        <input type="date" class="p-3 border rounded-lg shadow-sm ventas-fecha">
+
+        <!-- Responsable -->
+        <input type="text" placeholder="Responsable de la venta" class="p-3 border rounded-lg shadow-sm ventas-responsable">
+
+        <!-- Tipo de pago -->
+        <select class="p-3 border rounded-lg shadow-sm ventas-pago">
+          <option value="">Tipo de pago</option>
+          <option>Efectivo</option>
+          <option>Transferencia</option>
+          <option>Tarjeta</option>
+          <option>Crédito</option>
+        </select>
+
+        <!-- Entrega -->
+        <select class="p-3 border rounded-lg shadow-sm ventas-entrega">
+          <option value="">Forma de entrega</option>
+          <option>Entrega inmediata</option>
+          <option>Recogida en finca</option>
+          <option>Envío programado</option>
+        </select>
+
+        <!-- Descuento -->
+        <input type="number" placeholder="Descuento (%)" class="p-3 border rounded-lg shadow-sm ventas-descuento">
+
+        <!-- Impuesto -->
+        <input type="number" placeholder="Impuesto (%)" class="p-3 border rounded-lg shadow-sm ventas-impuesto">
+
+        <!-- Observaciones -->
+        <textarea class="col-span-2 p-3 border rounded-lg shadow-sm ventas-observaciones" placeholder="Motivo, detalles o comentarios"></textarea>
+
+        <!-- Botones -->
+        <div class="col-span-2 flex justify-center gap-6 mt-4">
+          <button type="submit" 
+                  class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 
+                         text-white px-8 py-3 rounded-lg shadow-lg font-semibold transition">
+            Registrar Venta
+          </button>
+          <button type="button" onclick="abrirHistorial()" 
+                  class="bg-gradient-to-r from-blue-700 to-blue-900 hover:from-blue-900 hover:to-blue-950 
+                         text-white px-8 py-3 rounded-lg shadow-lg font-semibold transition">
+            Historial de Ventas
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal -->
+    <div id="modalHistorial" class="fixed inset-0 hidden items-center justify-center bg-black/70 z-50">
+      <div class="bg-white w-11/12 max-w-5xl rounded-xl p-8 text-gray-900 relative shadow-2xl border border-gray-200">
+        <button onclick="cerrarHistorial()" 
+                class="absolute top-3 right-3 text-gray-600 hover:text-red-600 text-2xl font-bold">✖</button>
+
+        <h2 class="text-2xl font-bold mb-6 text-green-800 border-b pb-2">Historial de Ventas</h2>
+
+        <!-- Filtros -->
+        <div class="grid grid-cols-3 gap-4 mb-6">
+          <input type="text" placeholder="Buscar por cliente" class="p-2 border rounded-lg shadow-sm">
+          <select class="p-2 border rounded-lg shadow-sm">
+            <option>Filtrar por producto/animal</option>
+            <option>Leche</option>
+            <option>Carne</option>
+            <option>Heno</option>
+            <option>Forraje</option>
+            <option>Concentrado</option>
+            <option>Vaca G001</option>
+            <option>Becerro B001</option>
+          </select>
+          <input type="date" class="p-2 border rounded-lg shadow-sm">
+        </div>
+
+        <!-- Tabla -->
+        <div class="overflow-x-auto max-h-96 overflow-y-auto">
+          <table class="w-full text-sm border border-gray-300 rounded-lg shadow">
+            <thead class="bg-gray-100 text-gray-700 sticky top-0">
+              <tr>
+                <th class="p-2 border">Fecha</th>
+                <th class="p-2 border">Cliente</th>
+                <th class="p-2 border">Producto/Animal</th>
+                <th class="p-2 border">Cantidad</th>
+                <th class="p-2 border">Unidad</th>
+                <th class="p-2 border">Precio Unitario</th>
+                <th class="p-2 border">Total</th>
+                <th class="p-2 border">Tipo de Pago</th>
+                <th class="p-2 border">Observaciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-2 border">2025-09-23</td>
+                <td class="p-2 border">Cliente A</td>
+                <td class="p-2 border">Leche</td>
+                <td class="p-2 border">10</td>
+                <td class="p-2 border">Litros</td>
+                <td class="p-2 border">$2.000</td>
+                <td class="p-2 border">$20.000</td>
+                <td class="p-2 border">Efectivo</td>
+                <td class="p-2 border">Entrega inmediata</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer transparente al final -->
+  <footer class="w-full text-white text-center py-10 mt-auto">
+    &copy; 2025 GanaControl - Todos los derechos reservados
+  </footer>
+
+  <!-- AGREGAR ESTA LÍNEA -->
+  <script src="js/app.js"></script>
+
+  <script>
+    // Funciones del modal (mantenidas para compatibilidad)
+    function abrirHistorial() {
+      document.getElementById("modalHistorial").classList.remove("hidden");
+      document.getElementById("modalHistorial").classList.add("flex");
+    }
+    function cerrarHistorial() {
+      document.getElementById("modalHistorial").classList.add("hidden");
+      document.getElementById("modalHistorial").classList.remove("flex");
+    }
+    document.getElementById("modalHistorial").addEventListener("click", function(e) {
+      if(e.target === this) cerrarHistorial();
+    });
+  </script>
+
+</body>
+</html>

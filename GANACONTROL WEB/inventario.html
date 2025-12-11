@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario - GanaControl</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen relative flex flex-col font-sans">
+
+  <!-- Fondo -->
+  <div class="absolute inset-0 bg-cover bg-center z-[-2]" style="background-image: url('img/fondo-inventario.jpg');"></div>
+  <div class="absolute inset-0 bg-black/50 z-[-1]"></div>
+
+  <!-- Logo -->
+  <div class="absolute top-4 left-4 z-10">
+    <a href="dashboard.html">
+      <img src="img/logo.jpeg" alt="Logo" class="h-16 w-16 rounded-full shadow-lg border-2 border-white">
+    </a>
+  </div>
+
+  <!-- Botón volver -->
+  <div class="absolute top-4 right-4 z-10">
+    <a href="dashboard.html" class="px-5 py-2 bg-white text-gray-900 font-semibold rounded-lg shadow-md border border-gray-300 hover:bg-gray-100 hover:shadow-lg transition">
+      ← Atrás
+    </a>
+  </div>
+
+  <!-- Contenido -->
+  <main class="flex-grow flex flex-col items-center justify-start pt-24 pb-16 px-6 text-white">
+    <h1 class="text-4xl font-extrabold mb-8 text-white drop-shadow-2xl tracking-wider text-center">
+      Inventario
+    </h1>
+
+    <!-- Formulario -->
+    <div class="bg-white/95 w-4/5 max-w-5xl rounded-2xl p-8 text-gray-900 shadow-2xl border border-gray-200">
+      <h2 class="text-2xl font-semibold mb-6 text-green-800 border-b pb-2">Registrar ítem</h2>
+
+      <form class="grid grid-cols-2 gap-6" enctype="multipart/form-data">
+        <!-- Código -->
+        <input type="text" placeholder="Código del producto (ej: G001)" 
+               class="p-3 border rounded-lg shadow-sm inventario-codigo">
+
+        <!-- Categoría -->
+        <select class="p-3 border rounded-lg shadow-sm inventario-categoria">
+          <option value="">Categoría</option>
+          <option>Ganado</option>
+          <option>Insumos agrícolas</option>
+          <option>Medicamentos veterinarios</option>
+          <option>Herramientas</option>
+          <option>Alimentos concentrados</option>
+          <option>Forrajes y suplementos</option>
+          <option>Combustibles y lubricantes</option>
+          <option>Maquinaria</option>
+          <option>Materiales de construcción</option>
+          <option>Otros</option>
+        </select>
+
+        <!-- Nombre -->
+        <input type="text" placeholder="Nombre del producto / ítem" 
+               class="p-3 border rounded-lg shadow-sm inventario-nombre">
+
+        <!-- Tipo de movimiento -->
+        <select class="p-3 border rounded-lg shadow-sm inventario-movimiento">
+          <option value="">Tipo de movimiento</option>
+          <option>Ingreso</option>
+          <option>Salida</option>
+          <option>Robo</option>
+          <option>Muerte</option>
+          <option>Donación</option>
+          <option>Venta</option>
+          <option>Otro</option>
+        </select>
+
+        <!-- Cantidad -->
+        <input type="number" placeholder="Cantidad" 
+               class="p-3 border rounded-lg shadow-sm inventario-cantidad">
+        <select class="p-3 border rounded-lg shadow-sm inventario-unidad">
+          <option value="">Unidad</option>
+          <option>Kilos</option>
+          <option>Litros</option>
+          <option>Unidades</option>
+          <option>Sacos</option>
+          <option>Metros</option>
+          <option>Cabezas (Ganado)</option>
+        </select>
+
+        <!-- Fechas -->
+        <input type="date" class="p-3 border rounded-lg shadow-sm inventario-fecha-ingreso" placeholder="Fecha de Ingreso">
+        <input type="date" class="p-3 border rounded-lg shadow-sm inventario-fecha-salida" placeholder="Fecha de Salida">
+
+        <!-- Proveedor y responsable -->
+        <input type="text" placeholder="Proveedor" 
+               class="p-3 border rounded-lg shadow-sm inventario-proveedor">
+        <input type="text" placeholder="Responsable de registro" 
+               class="p-3 border rounded-lg shadow-sm inventario-responsable">
+
+        <!-- Stock mínimo y ubicación -->
+        <input type="number" placeholder="Stock mínimo" 
+               class="p-3 border rounded-lg shadow-sm inventario-stock-minimo">
+        <select class="p-3 border rounded-lg shadow-sm inventario-ubicacion">
+          <option value="">Ubicación en finca</option>
+          <option>Bodega principal</option>
+          <option>Corral</option>
+          <option>Cuarto frío</option>
+          <option>Establo</option>
+          <option>Otro</option>
+        </select>
+
+        <!-- Comprobante -->
+        <input type="file" class="col-span-2 p-3 border rounded-lg shadow-sm bg-gray-50 inventario-comprobante" accept="image/*,application/pdf">
+
+        <!-- Observaciones -->
+        <textarea class="col-span-2 p-3 border rounded-lg shadow-sm inventario-observaciones" placeholder="Observaciones adicionales..."></textarea>
+
+        <!-- Botones -->
+        <div class="col-span-2 flex gap-6 justify-center mt-6">
+          <button type="submit" class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-3 rounded-lg shadow-lg font-semibold transition transform hover:scale-105">
+            Guardar
+          </button>
+          <button type="button" onclick="abrirHistorial()" class="bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white px-6 py-3 rounded-lg shadow-lg font-semibold transition transform hover:scale-105">
+            Historial
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Modal Historial -->
+  <div id="modalHistorial" class="fixed inset-0 hidden items-center justify-center bg-black/70 z-50">
+    <div class="bg-white w-11/12 max-w-5xl rounded-xl p-8 text-gray-800 relative shadow-2xl border border-gray-200">
+      <!-- Botón cerrar -->
+      <button onclick="cerrarHistorial()" class="absolute top-3 right-3 text-gray-600 hover:text-red-600 text-2xl font-bold">✖</button>
+
+      <h2 class="text-2xl font-bold mb-6 text-green-800 border-b pb-2">Historial de Inventario</h2>
+
+      <!-- Filtros -->
+      <div class="grid grid-cols-3 gap-4 mb-6">
+        <input type="text" placeholder="Buscar por nombre" class="p-2 border rounded-lg">
+        <select class="p-2 border rounded-lg">
+          <option>Filtrar por categoría</option>
+          <option>Ganado</option>
+          <option>Medicamentos</option>
+          <option>Herramientas</option>
+          <option>Alimentos</option>
+        </select>
+        <input type="date" class="p-2 border rounded-lg">
+      </div>
+
+      <!-- Tabla -->
+      <div class="overflow-x-auto max-h-96 overflow-y-auto">
+        <table class="w-full text-sm border border-gray-300 rounded-lg shadow-md">
+          <thead class="bg-gray-100 text-gray-700 sticky top-0">
+            <tr>
+              <th class="p-2 border">Código</th>
+              <th class="p-2 border">Categoría</th>
+              <th class="p-2 border">Producto</th>
+              <th class="p-2 border">Cantidad</th>
+              <th class="p-2 border">Unidad</th>
+              <th class="p-2 border">Proveedor</th>
+              <th class="p-2 border">Ingreso</th>
+              <th class="p-2 border">Salida</th>
+              <th class="p-2 border">Estado</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y">
+            <tr>
+              <td class="p-2 border">G001</td>
+              <td class="p-2 border">Ganado</td>
+              <td class="p-2 border">Toro Simmental</td>
+              <td class="p-2 border">2</td>
+              <td class="p-2 border">Cabezas</td>
+              <td class="p-2 border">Ganadería San Luis</td>
+              <td class="p-2 border">2025-09-01</td>
+              <td class="p-2 border">2026-01-15</td>
+              <td class="p-2 border">Activo</td>
+            </tr>
+            <tr>
+              <td class="p-2 border">H015</td>
+              <td class="p-2 border">Herramienta</td>
+              <td class="p-2 border">Machete</td>
+              <td class="p-2 border">5</td>
+              <td class="p-2 border">Unidades</td>
+              <td class="p-2 border">Ferretería Campo</td>
+              <td class="p-2 border">2025-09-10</td>
+              <td class="p-2 border">---</td>
+              <td class="p-2 border">Disponible</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer transparente al final -->
+  <footer class="w-full text-white text-center py-6 mt-auto">
+    &copy; 2025 GanaControl - Todos los derechos reservados
+  </footer>
+
+  <!-- AGREGAR ESTA LÍNEA -->
+  <script src="js/app.js"></script>
+
+  <script>
+    // Funciones del modal (mantenidas para compatibilidad)
+    function abrirHistorial() {
+      document.getElementById("modalHistorial").classList.remove("hidden");
+      document.getElementById("modalHistorial").classList.add("flex");
+    }
+    function cerrarHistorial() {
+      document.getElementById("modalHistorial").classList.add("hidden");
+      document.getElementById("modalHistorial").classList.remove("flex");
+    }
+    // Cierra al hacer clic afuera
+    document.getElementById("modalHistorial").addEventListener("click", function(e) {
+      if (e.target === this) cerrarHistorial();
+    });
+  </script>
+
+</body>
+</html>
+

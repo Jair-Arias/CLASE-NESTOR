@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Entrada - GanaControl</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="relative min-h-screen flex flex-col">
+
+  <!-- Fondo completo con blur y superposición oscura -->
+  <div class="fixed inset-0 z-[-10]">
+    <img src="img/fondo-enter.jpeg" alt="Fondo GanaControl" 
+         class="w-full h-full object-cover filter blur-sm brightness-75">
+  </div>
+
+  <!-- Contenedor principal centrado -->
+  <div class="relative z-10 flex-1 flex items-center justify-center px-4">
+    <div class="bg-white/80 backdrop-blur-md p-12 rounded-3xl shadow-2xl text-center max-w-sm w-full border-l-4 border-green-700">
+      
+      <!-- Logo -->
+      <img src="img/logo.jpeg" alt="Logo GanaControl" class="w-24 h-24 mx-auto mb-6 rounded-full shadow-md border-2 border-green-600">
+      
+      <!-- Título -->
+      <h1 class="text-3xl font-bold mb-2 text-green-700">GanaControl</h1>
+      <p class="text-gray-700 mb-8 text-lg">Tu ganado, bajo control.</p>
+      
+      <!-- Botones -->
+      <div class="flex flex-col gap-4">
+        <a href="register.html" 
+           class="px-6 py-3 bg-green-700 text-white rounded-xl shadow-md hover:bg-green-800 transition font-semibold">
+           Crear Cuenta
+        </a>
+        
+        <a href="login.html" 
+           class="px-6 py-3 bg-white border border-green-700 text-green-700 rounded-xl shadow-md hover:bg-green-50 transition font-semibold">
+           Iniciar Sesión
+        </a>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Footer transparente al final -->
+  <footer class="w-full text-white text-center py-6 mt-auto z-10">
+    &copy; 2025 GanaControl - Todos los derechos reservados
+  </footer>
+
+  <!-- AGREGAR ESTA LÍNEA -->
+  <script src="js/app.js"></script>
+</body>
+</html>
+
+
